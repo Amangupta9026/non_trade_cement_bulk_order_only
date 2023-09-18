@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:non_trade_cement_bulk_order_only/riverpod/home_notfier.dart';
 import 'package:non_trade_cement_bulk_order_only/router/routes_names.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/textformfield_widget.dart';
 
@@ -190,21 +192,33 @@ class Footer extends StatelessWidget {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Column(
+                    child: Column(
                       children: [
-                        Text('Get latest updates',
+                        const Text('Get latest updates',
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.black)),
-                        SizedBox(height: 10),
-                        CustomTextFormField(
-                          hintText: 'Enter your email id',
-                          suffixIcon: Icon(
-                            Icons.send,
-                            color: Colors.red,
-                          ),
-                        ),
+                        const SizedBox(height: 10),
+                        Consumer(builder: (context, ref, child) {
+                          final refRead =
+                              ref.read(homeNotifierProvider.notifier);
+                          final refWatch = ref.watch(homeNotifierProvider);
+                          return CustomTextFormField(
+                            hintText: 'Enter your email id',
+                            controller: refWatch.value?.newsLater,
+                            suffixIcon: InkWell(
+                           
+                            onTap: () {
+                              refRead.newslater();
+                            },
+                              child: const Icon(
+                                Icons.send,
+                                color: Colors.red,
+                              ),
+                            ),
+                          );
+                        }),
                       ],
                     ),
                   )

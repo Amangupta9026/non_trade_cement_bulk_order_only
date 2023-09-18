@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "714043643906",
+    "project_id": "comexamplenontradecement-3835d",
+    "storage_bucket": "comexamplenontradecement-3835d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714043643906:android:b02e533f0914b3a058ef1b",
+        "android_client_info": {
+          "package_name": "com.example.nontradecement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoJcbU3fR6narbyi-_XJ5B0sfuiLxnH1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

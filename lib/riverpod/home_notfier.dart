@@ -1,5 +1,11 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:non_trade_cement_bulk_order_only/utils/colors.dart';
 
 final homeNotifierProvider =
     AsyncNotifierProvider.autoDispose<HomeNotifier, HomeMode>(() {
@@ -39,9 +45,18 @@ class HomeMode {
     'Orient Cement'
   ];
   String? selectedGender;
+  String? newDropDownValue;
 
   bool isScrolling = false;
   bool isMenuVisible = false;
+
+  TextEditingController? name = TextEditingController();
+  TextEditingController? email = TextEditingController();
+  TextEditingController? number = TextEditingController();
+  TextEditingController? message = TextEditingController();
+  TextEditingController? quantity = TextEditingController();
+
+    TextEditingController? newsLater = TextEditingController();
 }
 
 class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
@@ -132,6 +147,62 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
   void mobAppbarMenuVisible() {
     _depositMode.isMenuVisible = !_depositMode.isMenuVisible;
     state = AsyncData(_depositMode);
+  }
+
+  // post form
+  void postform() {
+    EasyLoading.show(status: 'loading...');
+    if (_depositMode.name!.text.isNotEmpty &&
+        _depositMode.email!.text.isNotEmpty &&
+        _depositMode.number!.text.isNotEmpty &&
+        _depositMode.quantity!.text.isNotEmpty &&
+        _depositMode.message!.text.isNotEmpty &&
+        _depositMode.selectedGender == null) {
+      FirebaseFirestore.instance.collection('queryForm').add({
+        "name": _depositMode.name?.text ?? '',
+        "email": _depositMode.email?.text ?? '',
+        "number": _depositMode.number?.text ?? '',
+        "quantity": _depositMode.quantity?.text ?? '',
+        "selected_company": _depositMode.newDropDownValue ?? '',
+        "message": _depositMode.message?.text ?? '',
+        "servertime": FieldValue.serverTimestamp()
+      });
+      EasyLoading.dismiss();
+      toast("Sent Successfully");
+      clearTextFields();
+    } else {
+      EasyLoading.dismiss();
+      toast("Please fill all the fields");
+    }
+  }
+
+  // newLater
+  void newslater(){
+    if(_depositMode.newsLater!.text.isEmpty){
+       toast("Please fill the field");
+    } else {
+      toast("Added Successfully");
+      clearTextFields();
+    }
+  }
+
+  void clearTextFields() {
+    _depositMode.name?.clear();
+    _depositMode.email?.clear();
+    _depositMode.number?.clear();
+    _depositMode.quantity?.clear();
+    _depositMode.message?.clear();
+  }
+
+  void toast(String message) {
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.white,
+      textColor: textColor,
+      fontSize: 16.0,
+    );
   }
 
   @override

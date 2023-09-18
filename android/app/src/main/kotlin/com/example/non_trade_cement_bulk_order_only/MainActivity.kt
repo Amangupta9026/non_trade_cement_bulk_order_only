@@ -1,4 +1,4 @@
-package com.example.non_trade_cement_bulk_order_only
+package com.example.nontradecement
 
 import io.flutter.embedding.android.FlutterActivity
 

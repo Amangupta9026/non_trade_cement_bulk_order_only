@@ -18,6 +18,7 @@ class Contact extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final refRead = ref.read(homeNotifierProvider.notifier);
+    final refWatch = ref.watch(homeNotifierProvider);
     return Scaffold(
         backgroundColor: whiteBackgroundColor,
         body: NotificationListener(
@@ -198,46 +199,150 @@ class Contact extends ConsumerWidget {
                                                   ],
                                                 ),
                                                 const SizedBox(height: 40),
-                                                const CustomTextFormField(
+                                                CustomTextFormField(
                                                   hintText: 'Your name',
+                                                  controller:
+                                                      refWatch.value?.name,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                const CustomTextFormField(
+                                                CustomTextFormField(
                                                   hintText: 'Your email',
+                                                  controller:
+                                                      refWatch.value?.email,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                const CustomTextFormField(
+                                                CustomTextFormField(
                                                   hintText:
                                                       'Your mobile number',
+                                                  controller:
+                                                      refWatch.value?.number,
                                                 ),
                                                 const SizedBox(height: 10),
-                                                const CustomTextFormField(
+                                                CustomTextFormField(
                                                   hintText: 'Your message',
+                                                  controller:
+                                                      refWatch.value?.message,
                                                   maxLines: 5,
                                                 ),
-                                                const SizedBox(height: 30),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Container(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            10),
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.red,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                const SizedBox(height: 10),
+                                                CustomTextFormField(
+                                                  hintText:
+                                                      'Enter your quantity',
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  controller:
+                                                      refWatch.value?.quantity,
+                                                ),
+                                                const SizedBox(height: 25),
+                                                DropdownButtonFormField(
+                                                  decoration: InputDecoration(
+                                                      isDense: true,
+                                                      enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(
+                                                              10.0),
+                                                          borderSide: BorderSide(
+                                                              color: refWatch.value?.selectedGender == null
+                                                                  ? Colors.grey
+                                                                  : Colors
+                                                                      .grey)),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(
+                                                              10.0),
+                                                          borderSide: BorderSide(
+                                                              color: refWatch.value?.selectedGender == null
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .grey)),
+                                                      disabledBorder:
+                                                          InputBorder.none,
+                                                      errorBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(10.0),
+                                                          borderSide: BorderSide(color: refWatch.value?.selectedGender == null ? Colors.white : Colors.grey))),
+                                                  icon: const Icon(Icons
+                                                      .keyboard_arrow_down_rounded),
+                                                  elevation: 1,
+                                                  hint: const Text(
+                                                      'Select Company'),
+                                                  //    isDense: true,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  isExpanded: true,
+                                                  value: refWatch
+                                                      .value?.selectedGender,
+                                                  onChanged: (newValue) {
+                                                     refWatch.value
+                                                             ?.newDropDownValue =
+                                                       newValue;
+                                                  },
+                                                  items: const [
+                                                    DropdownMenuItem(
+                                                      value: 'UltraTech',
+                                                      child: Text(
+                                                          'UltraTech Cement'),
                                                     ),
-                                                    child: const Text(
-                                                      'Submit',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                    DropdownMenuItem(
+                                                      value: 'Ambuja',
+                                                      child:
+                                                          Text('Ambuja Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'ACC',
+                                                      child: Text('ACC Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'Dalmia',
+                                                      child:
+                                                          Text('Dalmia Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'JK',
+                                                      child: Text('JK Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'JSW',
+                                                      child: Text('JSW Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'Shree',
+                                                      child:
+                                                          Text('Shree Cement'),
+                                                    ),
+                                                    DropdownMenuItem(
+                                                      value: 'Orient',
+                                                      child:
+                                                          Text('Orient Cement'),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 30),
+                                                InkWell(
+                                                  onTap: () {
+                                                    refRead.postform();
+                                                  },
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              10),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.red,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: const Text(
+                                                        'Submit',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -272,8 +377,7 @@ class Contact extends ConsumerWidget {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
-                                   const MobSubAppBarHeader(title: 'Contact'),
+                                const MobSubAppBarHeader(title: 'Contact'),
                                 Padding(
                                   padding: const EdgeInsets.fromLTRB(
                                       20.0, 40, 20, 40),
@@ -381,39 +485,129 @@ class Contact extends ConsumerWidget {
                                         ],
                                       ),
                                       const SizedBox(height: 30),
-                                      const CustomTextFormField(
+                                      CustomTextFormField(
                                         hintText: 'Your name',
+                                        controller: refWatch.value?.name,
                                       ),
                                       const SizedBox(height: 10),
-                                      const CustomTextFormField(
+                                      CustomTextFormField(
                                         hintText: 'Your email',
+                                        controller: refWatch.value?.email,
                                       ),
                                       const SizedBox(height: 10),
-                                      const CustomTextFormField(
+                                      CustomTextFormField(
                                         hintText: 'Your mobile number',
+                                        controller: refWatch.value?.number,
                                       ),
                                       const SizedBox(height: 10),
-                                      const CustomTextFormField(
+                                      CustomTextFormField(
                                         hintText: 'Your message',
                                         maxLines: 5,
+                                        controller: refWatch.value?.message,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      CustomTextFormField(
+                                        hintText: 'Enter your quantity',
+                                        keyboardType: TextInputType.number,
+                                        controller: refWatch.value?.number,
+                                      ),
+                                      const SizedBox(height: 25),
+                                      DropdownButtonFormField(
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                borderSide: BorderSide(
+                                                    color: refWatch.value?.selectedGender == null
+                                                        ? Colors.grey
+                                                        : Colors.grey)),
+                                            focusedBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                borderSide: BorderSide(
+                                                    color: refWatch.value?.selectedGender == null
+                                                        ? Colors.white
+                                                        : Colors.grey)),
+                                            disabledBorder: InputBorder.none,
+                                            errorBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                                borderSide: BorderSide(
+                                                    color:
+                                                        refWatch.value?.selectedGender == null
+                                                            ? Colors.white
+                                                            : Colors.grey))),
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down_rounded),
+                                        elevation: 1,
+                                        hint: const Text('Select Company'),
+                                        //    isDense: true,
+                                        borderRadius: BorderRadius.circular(10),
+                                        isExpanded: true,
+                                        value: refWatch.value?.selectedGender,
+                                        onChanged: (newValue) {
+                                            refWatch.value
+                                                             ?.newDropDownValue =
+                                                       newValue;
+                                        },
+                                        items: const [
+                                          DropdownMenuItem(
+                                            value: 'UltraTech',
+                                            child: Text('UltraTech Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'Ambuja',
+                                            child: Text('Ambuja Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'ACC',
+                                            child: Text('ACC Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'Dalmia',
+                                            child: Text('Dalmia Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'JK',
+                                            child: Text('JK Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'JSW',
+                                            child: Text('JSW Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'Shree',
+                                            child: Text('Shree Cement'),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 'Orient',
+                                            child: Text('Orient Cement'),
+                                          ),
+                                        ],
                                       ),
                                       const SizedBox(height: 30),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: const Text(
-                                            'Submit',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                                      InkWell(
+                                        onTap: () {
+                                          refRead.postform();
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Container(
+                                            padding: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: const Text(
+                                              'Submit',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ),
                                       ),

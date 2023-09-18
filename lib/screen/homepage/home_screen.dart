@@ -173,25 +173,30 @@ class HomeScreen extends ConsumerWidget {
                                             fontSize: 18)),
                                     const SizedBox(height: 20),
                                     // Text Form Field
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your name',
+                                      controller: refWatch.value?.name,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your email id',
+                                      controller: refWatch.value?.email,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your phone number',
+                                      controller: refWatch.value?.number,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your message',
+                                      controller: refWatch.value?.message,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your quantity',
                                       keyboardType: TextInputType.number,
+                                      controller: refWatch.value?.quantity,
                                     ),
                                     const SizedBox(height: 25),
                                     DropdownButtonFormField(
@@ -229,7 +234,10 @@ class HomeScreen extends ConsumerWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       isExpanded: true,
                                       value: refWatch.value?.selectedGender,
-                                      onChanged: (newValue) {},
+                                      onChanged: (newValue) {
+                                          refWatch.value?.newDropDownValue =
+                                            newValue;
+                                      },
                                       items: const [
                                         DropdownMenuItem(
                                           value: 'UltraTech',
@@ -267,24 +275,29 @@ class HomeScreen extends ConsumerWidget {
                                     ),
                                     const SizedBox(height: 30),
                                     // Button
-                                    Container(
-                                        width: double.infinity,
-                                        height: 52,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(12)),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            'Get a Call Back',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
+                                    InkWell(
+                                      onTap: () {
+                                        refRead.postform();
+                                      },
+                                      child: Container(
+                                          width: double.infinity,
+                                          height: 52,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(12)),
                                           ),
-                                        )),
+                                          child: const Center(
+                                            child: Text(
+                                              'Get a Call Back',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )),
+                                    ),
 
                                     const SizedBox(height: 60),
                                     const IndustriesWeServed(),
@@ -1199,25 +1212,30 @@ class HomeScreen extends ConsumerWidget {
                                             fontSize: 18)),
                                     const SizedBox(height: 20),
                                     // Text Form Field
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your name',
+                                      controller: refWatch.value?.name,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your email id',
+                                      controller: refWatch.value?.email,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your phone number',
+                                      controller: refWatch.value?.number,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your message',
+                                      controller: refWatch.value?.message,
                                     ),
                                     const SizedBox(height: 15),
-                                    const CustomTextFormField(
+                                    CustomTextFormField(
                                       hintText: 'Enter your quantity',
                                       keyboardType: TextInputType.number,
+                                      controller: refWatch.value?.quantity,
                                     ),
                                     const SizedBox(height: 25),
                                     DropdownButtonFormField(
@@ -1255,7 +1273,11 @@ class HomeScreen extends ConsumerWidget {
                                       borderRadius: BorderRadius.circular(10),
                                       isExpanded: true,
                                       value: refWatch.value?.selectedGender,
-                                      onChanged: (newValue) {},
+                                      onChanged: (newValue) {
+                                          refWatch.value
+                                                             ?.newDropDownValue =
+                                                       newValue;
+                                      },
                                       items: const [
                                         DropdownMenuItem(
                                           value: 'UltraTech',
@@ -1293,24 +1315,29 @@ class HomeScreen extends ConsumerWidget {
                                     ),
                                     const SizedBox(height: 30),
                                     // Button
-                                    Container(
-                                        width: double.infinity,
-                                        height: 52,
-                                        decoration: const BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(12)),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            'Get a Call Back',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20),
+                                    InkWell(
+                                      onTap: () {
+                                        refRead.postform();
+                                      },
+                                      child: Container(
+                                          width: double.infinity,
+                                          height: 52,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(12)),
                                           ),
-                                        )),
+                                          child: const Center(
+                                            child: Text(
+                                              'Get a Call Back',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          )),
+                                    ),
 
                                     const SizedBox(height: 50),
                                     const MobileIndustriesWeServed(),
