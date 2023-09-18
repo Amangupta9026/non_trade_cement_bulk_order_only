@@ -1,0 +1,59 @@
+name: non_trade_cement_bulk_order_only
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  go_router: ^10.0.0
+  google_fonts: ^5.1.0
+  carousel_slider: ^4.2.1
+  cached_network_image: ^3.2.3
+
+  flutter_riverpod: ^2.3.6
+  riverpod_annotation: ^2.1.1
+  flutter_easyloading: ^3.0.5
+  fluttertoast: ^8.2.2
+  flutter_native_splash: ^2.3.1
+
+  firebase_core: ^2.15.1
+  cloud_firestore: ^4.8.1
+  firebase_storage: ^11.2.3
+
+  shared_preferences: ^2.2.0
+  share_plus: ^7.1.0
+  intl: ^0.18.1
+  material_design_icons_flutter: ^7.0.7296
+  url_strategy: ^0.2.0
+
+  url_launcher: ^6.1.14
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  web:
+    generate: true
+    image_path: "assets/images/about.jpg"
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
