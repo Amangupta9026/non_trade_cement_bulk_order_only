@@ -1,11 +1,11 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:non_trade_cement_bulk_order_only/utils/colors.dart';
+import 'package:non_trade_cement_bulk_order_only/widget/alertdialogbox.dart';
 
 final homeNotifierProvider =
     AsyncNotifierProvider.autoDispose<HomeNotifier, HomeMode>(() {
@@ -56,7 +56,10 @@ class HomeMode {
   TextEditingController? message = TextEditingController();
   TextEditingController? quantity = TextEditingController();
 
-    TextEditingController? newsLater = TextEditingController();
+  TextEditingController? newsLater = TextEditingController();
+
+  final GlobalKey<FormState> key1 = GlobalKey<FormState>();
+  final GlobalKey<FormState> key2 = GlobalKey<FormState>();
 }
 
 class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
@@ -73,7 +76,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isSelected2 = isValue2;
     _depositMode.isSelected3 = isValue3;
     _depositMode.isSelected4 = isValue4;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered(bool isHovered) {
@@ -84,7 +87,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered5 = false;
     _depositMode.isHovered6 = false;
 
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered2(bool isHovered2) {
@@ -94,7 +97,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered4 = false;
     _depositMode.isHovered5 = false;
     _depositMode.isHovered6 = false;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered3(bool isHovered3) {
@@ -104,7 +107,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered4 = false;
     _depositMode.isHovered5 = false;
     _depositMode.isHovered6 = false;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered4(bool isHovered4) {
@@ -114,7 +117,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered = false;
     _depositMode.isHovered5 = false;
     _depositMode.isHovered6 = false;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered5(bool isHovered5) {
@@ -124,7 +127,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered4 = false;
     _depositMode.isHovered = false;
     _depositMode.isHovered6 = false;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void onEntered6(bool isHovered6) {
@@ -134,12 +137,12 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
     _depositMode.isHovered4 = false;
     _depositMode.isHovered5 = false;
     _depositMode.isHovered = false;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   void scrollListener(bool value) {
     _depositMode.isScrolling = value;
-    state = AsyncData(_depositMode);
+     state = AsyncData(_depositMode);
   }
 
   // Mob Appbar Header
@@ -150,7 +153,7 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
   }
 
   // post form
-  void postform() {
+  void postform(BuildContext context, String mobile) {
     EasyLoading.show(status: 'loading...');
     if (_depositMode.name!.text.isNotEmpty &&
         _depositMode.email!.text.isNotEmpty &&
@@ -168,8 +171,12 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
         "servertime": FieldValue.serverTimestamp()
       });
       EasyLoading.dismiss();
-      toast("Sent Successfully");
-      clearTextFields();
+    showMyDialog(context, 'Thank You',
+        'Our team will call you from +91 $mobile within 24 hours. Kindly save this number for further query',
+        () {
+      context.pop();
+    }, istwobutton: false);
+    clearTextFields();
     } else {
       EasyLoading.dismiss();
       toast("Please fill all the fields");
@@ -177,9 +184,9 @@ class HomeNotifier extends AutoDisposeAsyncNotifier<HomeMode> {
   }
 
   // newLater
-  void newslater(){
-    if(_depositMode.newsLater!.text.isEmpty){
-       toast("Please fill the field");
+  void newslater() {
+    if (_depositMode.newsLater!.text.isEmpty) {
+      toast("Please fill the field");
     } else {
       toast("Added Successfully");
       clearTextFields();

@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:non_trade_cement_bulk_order_only/riverpod/home_notfier.dart';
+import 'package:non_trade_cement_bulk_order_only/router/routes_names.dart';
 import 'package:non_trade_cement_bulk_order_only/utils/colors.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/appbar.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/footer.dart';
@@ -116,22 +118,18 @@ class About extends ConsumerWidget {
                                               ),
                                               const SizedBox(height: 40),
                                               InkWell(
-                                            onTap: () async {
-                                              final call = Uri.parse(
-                                                  'tel:+91 1234567890');
-                                              if (await canLaunchUrl(call)) {
-                                                launchUrl(call);
-                                              } else {
-                                                throw 'Could not launch $call';
-                                              }
-                                            },
+                                                onTap: () async {
+                                                  context.pushNamed(
+                                                      RouteNames.contact);
+                                                },
                                                 child: Container(
                                                   padding:
                                                       const EdgeInsets.all(10),
                                                   decoration: BoxDecoration(
                                                     color: Colors.red,
                                                     borderRadius:
-                                                        BorderRadius.circular(10),
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
                                                   child: const Text(
                                                     'Call Now',
@@ -420,15 +418,15 @@ class About extends ConsumerWidget {
                                         ),
                                         const SizedBox(height: 30),
                                         InkWell(
-                                            onTap: () async {
-                                              final call = Uri.parse(
-                                                  'tel:+91 1234567890');
-                                              if (await canLaunchUrl(call)) {
-                                                launchUrl(call);
-                                              } else {
-                                                throw 'Could not launch $call';
-                                              }
-                                            },
+                                          onTap: () async {
+                                            final call =
+                                                Uri.parse('tel:+91 1234567890');
+                                            if (await canLaunchUrl(call)) {
+                                              launchUrl(call);
+                                            } else {
+                                              throw 'Could not launch $call';
+                                            }
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.all(10),
                                             decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +13,6 @@ import 'package:non_trade_cement_bulk_order_only/widget/mob_footer.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/mob_indutries_we_serve.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/responsive_devices.dart';
 import 'package:non_trade_cement_bulk_order_only/widget/textformfield_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -49,7 +49,14 @@ class HomeScreen extends ConsumerWidget {
               PointerDeviceKind.stylus
             },
           ),
-          child: Column(
+          child:
+              // FutureBuilder(
+              //     future: FirebaseFirestore.instance.collection('update').get(),
+              //     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              //       var alldata = snapshot.data?.docs;
+              //       log(alldata?[1]['mobile'].toString() ?? 'data not found');
+
+              Column(
             children: [
               if (Responsive.isDesktop(context))
                 Expanded(
@@ -115,13 +122,10 @@ class HomeScreen extends ConsumerWidget {
                                         const SizedBox(height: 40),
                                         InkWell(
                                             onTap: () async {
-                                              final call = Uri.parse(
-                                                  'tel:+91 1234567890');
-                                              if (await canLaunchUrl(call)) {
-                                                launchUrl(call);
-                                              } else {
-                                                throw 'Could not launch $call';
-                                              }
+                                              Scrollable.ensureVisible(refWatch
+                                                  .value!
+                                                  .key2
+                                                  .currentContext!); // go to specifie screen
                                             },
                                             child: Container(
                                               padding:
@@ -147,6 +151,7 @@ class HomeScreen extends ConsumerWidget {
                                 padding:
                                     const EdgeInsets.fromLTRB(50.0, 0, 50, 40),
                                 child: Column(
+                                  key: refWatch.value?.key2,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Row(
@@ -187,11 +192,7 @@ class HomeScreen extends ConsumerWidget {
                                       hintText: 'Enter your phone number',
                                       controller: refWatch.value?.number,
                                     ),
-                                    const SizedBox(height: 15),
-                                    CustomTextFormField(
-                                      hintText: 'Enter your message',
-                                      controller: refWatch.value?.message,
-                                    ),
+
                                     const SizedBox(height: 15),
                                     CustomTextFormField(
                                       hintText: 'Enter your quantity',
@@ -235,69 +236,104 @@ class HomeScreen extends ConsumerWidget {
                                       isExpanded: true,
                                       value: refWatch.value?.selectedGender,
                                       onChanged: (newValue) {
-                                          refWatch.value?.newDropDownValue =
+                                        refWatch.value?.newDropDownValue =
                                             newValue;
                                       },
                                       items: const [
                                         DropdownMenuItem(
-                                          value: 'UltraTech',
+                                          value: 'UltraTech Cement',
                                           child: Text('UltraTech Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Ambuja',
+                                          value: 'Ambuja Cement',
                                           child: Text('Ambuja Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'ACC',
+                                          value: 'ACC Cement',
                                           child: Text('ACC Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Dalmia',
+                                          value: 'Dalmia Cement',
                                           child: Text('Dalmia Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'JK',
+                                          value: 'JK Cement',
                                           child: Text('JK Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'JSW',
+                                          value: 'JSW Cement',
                                           child: Text('JSW Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Shree',
+                                          value: 'Shree Cement',
                                           child: Text('Shree Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Orient',
+                                          value: 'Orient Cement',
                                           child: Text('Orient Cement'),
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 15),
+                                    CustomTextFormField(
+                                      hintText: 'Enter your message',
+                                      controller: refWatch.value?.message,
+                                    ),
                                     const SizedBox(height: 30),
                                     // Button
-                                    InkWell(
-                                      onTap: () {
-                                        refRead.postform();
-                                      },
-                                      child: Container(
-                                          width: double.infinity,
-                                          height: 52,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(12)),
-                                          ),
-                                          child: const Center(
-                                            child: Text(
-                                              'Get a Call Back',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                          )),
-                                    ),
+                                    FutureBuilder(
+                                        future: FirebaseFirestore.instance
+                                            .collection('popupmobilenumber')
+                                            .get(),
+                                        builder: (context,
+                                            AsyncSnapshot<QuerySnapshot>
+                                                snapshot) {
+                                          var alldata = snapshot.data?.docs;
+                                          //  log(alldata?[1]['mobile'].toString() ?? 'data not found');
+
+                                          if (!snapshot.hasData) {
+                                            return const Align(
+                                              alignment: Alignment.center,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(height: 60),
+                                                  CircularProgressIndicator(),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                          return InkWell(
+                                            onTap: () {
+                                              refRead.postform(
+                                                  context,
+                                                  alldata?[0]['mobile_number']
+                                                          .toString() ??
+                                                      '');
+                                            },
+                                            child: Container(
+                                                width: double.infinity,
+                                                height: 52,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(12)),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'Get a Call Back',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  ),
+                                                )),
+                                          );
+                                        }),
 
                                     const SizedBox(height: 60),
                                     const IndustriesWeServed(),
@@ -360,21 +396,30 @@ class HomeScreen extends ConsumerWidget {
                                                           FontWeight.w500,
                                                       color: Colors.black)),
                                               const SizedBox(height: 30),
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        40, 10, 40, 10),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child: const Text('Call Us Now',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.white)),
+                                              InkWell(
+                                                onTap: () {
+                                                  Scrollable.ensureVisible(refWatch
+                                                      .value!
+                                                      .key2
+                                                      .currentContext!); // go to specifie screen
+                                                },
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          40, 10, 40, 10),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: const Text(
+                                                      'Call Us Now',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: Colors.white)),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -1081,12 +1126,7 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const Positioned(
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          bottom: 0,
-                          child: AppBarWidget()),
+                      const AppBarWidget(),
                     ],
                   ),
                 ),
@@ -1154,13 +1194,10 @@ class HomeScreen extends ConsumerWidget {
                                         const SizedBox(height: 40),
                                         InkWell(
                                             onTap: () async {
-                                              final call = Uri.parse(
-                                                  'tel:+91 1234567890');
-                                              if (await canLaunchUrl(call)) {
-                                                launchUrl(call);
-                                              } else {
-                                                throw 'Could not launch $call';
-                                              }
+                                              Scrollable.ensureVisible(refWatch
+                                                  .value!
+                                                  .key2
+                                                  .currentContext!); // go to specifie screen
                                             },
                                             child: Container(
                                               padding:
@@ -1186,6 +1223,7 @@ class HomeScreen extends ConsumerWidget {
                                 padding:
                                     const EdgeInsets.fromLTRB(20.0, 0, 20, 30),
                                 child: Column(
+                                  key: refWatch.value?.key2,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Row(
@@ -1226,11 +1264,7 @@ class HomeScreen extends ConsumerWidget {
                                       hintText: 'Enter your phone number',
                                       controller: refWatch.value?.number,
                                     ),
-                                    const SizedBox(height: 15),
-                                    CustomTextFormField(
-                                      hintText: 'Enter your message',
-                                      controller: refWatch.value?.message,
-                                    ),
+
                                     const SizedBox(height: 15),
                                     CustomTextFormField(
                                       hintText: 'Enter your quantity',
@@ -1274,70 +1308,104 @@ class HomeScreen extends ConsumerWidget {
                                       isExpanded: true,
                                       value: refWatch.value?.selectedGender,
                                       onChanged: (newValue) {
-                                          refWatch.value
-                                                             ?.newDropDownValue =
-                                                       newValue;
+                                        refWatch.value?.newDropDownValue =
+                                            newValue;
                                       },
                                       items: const [
                                         DropdownMenuItem(
-                                          value: 'UltraTech',
+                                          value: 'UltraTech Cement',
                                           child: Text('UltraTech Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Ambuja',
+                                          value: 'Ambuja Cement',
                                           child: Text('Ambuja Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'ACC',
+                                          value: 'ACC Cement',
                                           child: Text('ACC Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Dalmia',
+                                          value: 'Dalmia Cement',
                                           child: Text('Dalmia Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'JK',
+                                          value: 'JK Cement',
                                           child: Text('JK Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'JSW',
+                                          value: 'JSW Cement',
                                           child: Text('JSW Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Shree',
+                                          value: 'Shree Cement',
                                           child: Text('Shree Cement'),
                                         ),
                                         DropdownMenuItem(
-                                          value: 'Orient',
+                                          value: 'Orient Cement',
                                           child: Text('Orient Cement'),
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(height: 15),
+                                    CustomTextFormField(
+                                      hintText: 'Enter your message',
+                                      controller: refWatch.value?.message,
+                                    ),
                                     const SizedBox(height: 30),
                                     // Button
-                                    InkWell(
-                                      onTap: () {
-                                        refRead.postform();
-                                      },
-                                      child: Container(
-                                          width: double.infinity,
-                                          height: 52,
-                                          decoration: const BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(12)),
-                                          ),
-                                          child: const Center(
-                                            child: Text(
-                                              'Get a Call Back',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                          )),
-                                    ),
+                                    FutureBuilder(
+                                        future: FirebaseFirestore.instance
+                                            .collection('popupmobilenumber')
+                                            .get(),
+                                        builder: (context,
+                                            AsyncSnapshot<QuerySnapshot>
+                                                snapshot) {
+                                          var alldata = snapshot.data?.docs;
+                                          //  log(alldata?[1]['mobile'].toString() ?? 'data not found');
+
+                                          if (!snapshot.hasData) {
+                                            return const Align(
+                                              alignment: Alignment.center,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(height: 60),
+                                                  CircularProgressIndicator(),
+                                                ],
+                                              ),
+                                            );
+                                          }
+                                          return InkWell(
+                                            onTap: () {
+                                              refRead.postform(
+                                                  context,
+                                                  alldata?[0]['mobile_number']
+                                                          .toString() ??
+                                                      '');
+                                            },
+                                            child: Container(
+                                                width: double.infinity,
+                                                height: 52,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(12)),
+                                                ),
+                                                child: const Center(
+                                                  child: Text(
+                                                    'Get a Call Back',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  ),
+                                                )),
+                                          );
+                                        }),
 
                                     const SizedBox(height: 50),
                                     const MobileIndustriesWeServed(),
@@ -1384,18 +1452,26 @@ class HomeScreen extends ConsumerWidget {
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.black)),
                                         const SizedBox(height: 30),
-                                        Container(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 10, 20, 10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: const Text('Call Us Now',
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Colors.white)),
+                                        InkWell(
+                                          onTap: () {
+                                            Scrollable.ensureVisible(refWatch
+                                                .value!
+                                                .key2
+                                                .currentContext!); // go to specifie screen
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 10, 20, 10),
+                                            decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: const Text('Call Us Now',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white)),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -2057,6 +2133,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
             ],
           ),
+          // }),
         ),
       ),
     );

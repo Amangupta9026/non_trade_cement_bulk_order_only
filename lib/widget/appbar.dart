@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:non_trade_cement_bulk_order_only/riverpod/home_notfier.dart';
 import 'package:non_trade_cement_bulk_order_only/router/routes_names.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AppBarWidget extends ConsumerWidget {
   const AppBarWidget({super.key});
@@ -123,12 +122,8 @@ class AppBarWidget extends ConsumerWidget {
                 ),
                 InkWell(
                   onTap: () async {
-                    final call = Uri.parse('tel:+91 1234567890');
-                    if (await canLaunchUrl(call)) {
-                      launchUrl(call);
-                    } else {
-                      throw 'Could not launch $call';
-                    }
+                    Scrollable.ensureVisible(refWatch
+                        .value!.key2.currentContext!); // go to specifie screen
                   },
                   child: Container(
                     padding: const EdgeInsets.fromLTRB(25, 10, 25, 10),

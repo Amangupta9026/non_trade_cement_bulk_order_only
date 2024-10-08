@@ -19,57 +19,52 @@ class SubAppBarHeader extends StatelessWidget {
           colorBlendMode: BlendMode.darken,
         ),
         Center(
-          child: Positioned(
-            top: 150,
-            left: 20,
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 150.0),
-              child: Column(
-                children: [
-                  Text(
-                    title ?? '',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 5),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            context.pushNamed(RouteNames.home);
-                          },
-                          child: const Text(
-                            'Home',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        const Icon(Icons.arrow_forward,
-                            color: Colors.white, size: 20),
-                        const SizedBox(width: 10),
-                        Text(
-                          title ?? '',
+          child: Padding(
+            padding: const EdgeInsets.only(top: 150.0),
+            child: Column(
+              children: [
+                Text(
+                  title ?? '',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 5),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          context.pushNamed(RouteNames.home);
+                        },
+                        child: const Text(
+                          'Home',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: TextStyle(
                               fontSize: 16,
                               color: Colors.white,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.w500),
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward,
+                          color: Colors.white, size: 20),
+                      const SizedBox(width: 10),
+                      Text(
+                        title ?? '',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:non_trade_cement_bulk_order_only/riverpod/home_notfier.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class IndustriesWeServed extends ConsumerWidget {
   const IndustriesWeServed({super.key});
@@ -104,25 +103,7 @@ class IndustriesWeServed extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                               fontSize: 18)),
                       const SizedBox(height: 20),
-                      InkWell(
-                        onTap: () async {
-                          final call = Uri.parse('tel:+91 1234567890');
-                          if (await canLaunchUrl(call)) {
-                            launchUrl(call);
-                          } else {
-                            throw 'Could not launch $call';
-                          }
-                        },
-                        child: Text(
-                          'Call Now',
-                          style: TextStyle(
-                              color: refWatch.value!.isHovered
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
+                      
                     ],
                   ),
                 ),
@@ -171,25 +152,21 @@ class IndustriesWeServed extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                               fontSize: 18)),
                       const SizedBox(height: 20),
-                      InkWell(
-                        onTap: () async {
-                          final call = Uri.parse('tel:+91 1234567890');
-                          if (await canLaunchUrl(call)) {
-                            launchUrl(call);
-                          } else {
-                            throw 'Could not launch $call';
-                          }
-                        },
-                        child: Text(
-                          'Call Now',
-                          style: TextStyle(
-                              color: refWatch.value!.isHovered2
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
+                      // InkWell(
+                      //   onTap: () async {
+                      //     Scrollable.ensureVisible(refWatch.value!.key2
+                      //         .currentContext!); // go to specifie screen
+                      //   },
+                      //   child: Text(
+                      //     'Call Now',
+                      //     style: TextStyle(
+                      //         color: refWatch.value!.isHovered2
+                      //             ? Colors.white
+                      //             : Colors.black,
+                      //         fontSize: 18,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
@@ -238,25 +215,21 @@ class IndustriesWeServed extends ConsumerWidget {
                               fontWeight: FontWeight.w500,
                               fontSize: 18)),
                       const SizedBox(height: 20),
-                      InkWell(
-                        onTap: () async {
-                          final call = Uri.parse('tel:+91 1234567890');
-                          if (await canLaunchUrl(call)) {
-                            launchUrl(call);
-                          } else {
-                            throw 'Could not launch $call';
-                          }
-                        },
-                        child: Text(
-                          'Call Now',
-                          style: TextStyle(
-                              color: refWatch.value!.isHovered3
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
+                      // InkWell(
+                      //   onTap: () async {
+                      //     Scrollable.ensureVisible(refWatch.value!.key2
+                      //         .currentContext!); // go to specifie screen
+                      //   },
+                      //   child: Text(
+                      //     'Call Now',
+                      //     style: TextStyle(
+                      //         color: refWatch.value!.isHovered3
+                      //             ? Colors.white
+                      //             : Colors.black,
+                      //         fontSize: 18,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // )
                     ],
                   ),
                 ),
@@ -308,25 +281,21 @@ class IndustriesWeServed extends ConsumerWidget {
                             fontWeight: FontWeight.w500,
                             fontSize: 18)),
                     const SizedBox(height: 20),
-                    InkWell(
-                      onTap: () async {
-                        final call = Uri.parse('tel:+91 1234567890');
-                        if (await canLaunchUrl(call)) {
-                          launchUrl(call);
-                        } else {
-                          throw 'Could not launch $call';
-                        }
-                      },
-                      child: Text(
-                        'Call Now',
-                        style: TextStyle(
-                            color: refWatch.value!.isHovered4
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
+                    // InkWell(
+                    //   onTap: () async {
+                    //     Scrollable.ensureVisible(refWatch.value!.key2
+                    //         .currentContext!); // go to specifie screen
+                    //   },
+                    //   child: Text(
+                    //     'Call Now',
+                    //     style: TextStyle(
+                    //         color: refWatch.value!.isHovered4
+                    //             ? Colors.white
+                    //             : Colors.black,
+                    //         fontSize: 18,
+                    //         fontWeight: FontWeight.bold),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -375,25 +344,21 @@ class IndustriesWeServed extends ConsumerWidget {
                             fontWeight: FontWeight.w500,
                             fontSize: 18)),
                     const SizedBox(height: 20),
-                    InkWell(
-                      onTap: () async {
-                        final call = Uri.parse('tel:+91 1234567890');
-                        if (await canLaunchUrl(call)) {
-                          launchUrl(call);
-                        } else {
-                          throw 'Could not launch $call';
-                        }
-                      },
-                      child: Text(
-                        'Call Now',
-                        style: TextStyle(
-                            color: refWatch.value!.isHovered5
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
+                    // InkWell(
+                    //   onTap: () async {
+                    //     Scrollable.ensureVisible(refWatch.value!.key2
+                    //         .currentContext!); // go to specifie screen
+                    //   },
+                    //   child: Text(
+                    //     'Call Now',
+                    //     style: TextStyle(
+                    //         color: refWatch.value!.isHovered5
+                    //             ? Colors.white
+                    //             : Colors.black,
+                    //         fontSize: 18,
+                    //         fontWeight: FontWeight.bold),
+                    //   ),
+                    // )
                   ],
                 ),
               ),
@@ -442,22 +407,18 @@ class IndustriesWeServed extends ConsumerWidget {
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18)),
                           const SizedBox(height: 20),
-                          InkWell(
-                              onTap: () async {
-                                final call = Uri.parse('tel:+91 1234567890');
-                                if (await canLaunchUrl(call)) {
-                                  launchUrl(call);
-                                } else {
-                                  throw 'Could not launch $call';
-                                }
-                              },
-                              child: Text('Call Now',
-                                  style: TextStyle(
-                                      color: refWatch.value!.isHovered6
-                                          ? Colors.white
-                                          : Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold)))
+                          // InkWell(
+                          //     onTap: () async {
+                          //       Scrollable.ensureVisible(refWatch.value!.key2
+                          //           .currentContext!); // go to specifie screen
+                          //     },
+                          //     child: Text('Call Now',
+                          //         style: TextStyle(
+                          //             color: refWatch.value!.isHovered6
+                          //                 ? Colors.white
+                          //                 : Colors.black,
+                          //             fontSize: 18,
+                          //             fontWeight: FontWeight.bold)))
                         ],
                       ),
                     )))),
